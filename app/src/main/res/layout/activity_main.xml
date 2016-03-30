@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    tools:context="com.alexilyin.android.a32_imageutilslib.MainActivity">
+
+    <SurfaceView
+        android:id="@+id/sv"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:paddingTop="16dp">
+
+        <Button
+            android:id="@+id/btnFillRegion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:text="Fill\nregion" />
+
+        <Button
+            android:id="@+id/btnPaintRegion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/btnFillRegion"
+            android:layout_centerVertical="true"
+            android:text="Paint\nregion" />
+
+        <Button
+            android:id="@+id/btnPaintFree"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/btnPaintRegion"
+            android:layout_centerVertical="true"
+            android:text="Free\nPaint" />
+
+
+
+
+
+        <TextView
+            android:id="@+id/textErase"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:text="E"/>
+
+        <Switch
+            android:id="@+id/swPaintErase"
+            android:layout_width="wrap_content"
+            android:layout_toLeftOf="@id/textErase"
+            android:layout_centerVertical="true"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/textPaint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@id/swPaintErase"
+            android:layout_centerVertical="true"
+            android:text="P"/>
+
+
+    </RelativeLayout>
+
+</LinearLayout>
