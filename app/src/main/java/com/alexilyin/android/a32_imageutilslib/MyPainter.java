@@ -111,7 +111,7 @@ public class MyPainter {
 // Inner Classes
 // =============================================================================================
 
-    enum FillDirection {UP, DOWN, BOTH}
+    private enum FillDirection {UP, DOWN, BOTH}
 
     // Segment is a horizontal 1px line filled with single color
     private class Segment {

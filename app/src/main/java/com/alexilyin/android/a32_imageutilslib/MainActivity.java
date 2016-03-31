@@ -6,8 +6,10 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
+import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.Surface;
 import android.view.SurfaceHolder;
@@ -77,6 +79,7 @@ public class MainActivity extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     paintMode = PaintMode.ERASE;
+//                    testO();
                 } else {
                     paintMode = PaintMode.PLAIN_COLOR;
                 }
@@ -336,5 +339,91 @@ public class MainActivity extends AppCompatActivity {
 
         lastX = x;
         lastY = y;
+    }
+
+
+    private void testO() {
+
+        int scale = 100;
+        int repeatCount = 10;
+        int dotsCount = 30;
+
+        // Clean square fill
+        //
+        // |-------|
+        // |       |
+        // |       |
+        // |-------|
+        Log.d(TAG, "Clean square");
+        Log.d(TAG, "width | height | time");
+        for (int j = 0; j < repeatCount; j++)
+            for (int i = 1; i <= dotsCount; i++) {
+
+                int width = i * scale;
+                int height = i * scale;
+
+                Bitmap b = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+
+                long t0 = SystemClock.currentThreadTimeMillis();
+                new MyPainter().makeAlphaMask(width / 2, height / 2, b, Color.WHITE);
+                long t1 = SystemClock.currentThreadTimeMillis();
+
+                Log.d(TAG, width + "\t" + height + "\t" + (t1 - t0));
+
+            }
+
+        // +two circles
+        //
+        // |-------|
+        // | o     |
+        // |     o |
+        // |-------|
+        Log.d(TAG, "Two circles");
+        Log.d(TAG, "width | height | time");
+        for (int j = 0; j < repeatCount; j++)
+            for (int i = 1; i <= dotsCount; i++) {
+
+                int width = i * scale;
+                int height = i * scale;
+
+                Bitmap b = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+                Canvas c = new Canvas(b);
+                c.drawCircle(width / 4, height / 4, width / 8, drawPaint);
+                c.drawCircle(width * 3 / 4, height * 3 / 4, width / 8, drawPaint);
+
+                long t0 = SystemClock.currentThreadTimeMillis();
+                new MyPainter().makeAlphaMask(width / 2, height / 2, b, Color.WHITE);
+                long t1 = SystemClock.currentThreadTimeMillis();
+
+                Log.d(TAG, width + "\t" + height + "\t" + (t1 - t0));
+            }
+
+        // Grid of uniform circles
+        //
+        // |-------|
+        // | o o o |
+        // | o o o |
+        // |-------|
+        Log.d(TAG, "Grid of circles");
+        Log.d(TAG, "width | height | time");
+        for (int j = 0; j < repeatCount; j++)
+            for (int i = 2; i <= dotsCount; i += 2) {
+
+                int width = i * scale;
+                int height = i * scale;
+
+                Bitmap b = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+                Canvas c = new Canvas(b);
+                for (int yi = 0; yi < i; yi++)
+                    for (int xi = 0; xi < i; xi++)
+                        c.drawCircle(xi * scale + scale / 2, yi * scale + scale / 2, scale / 4, drawPaint);
+
+                long t0 = SystemClock.currentThreadTimeMillis();
+                new MyPainter().makeAlphaMask(width / 2, height / 2, b, Color.WHITE);
+                long t1 = SystemClock.currentThreadTimeMillis();
+
+                Log.d(TAG, width + "\t" + height + "\t" + (t1 - t0));
+
+            }
     }
 }
